@@ -126,7 +126,14 @@ public class Test {
         DataOutputStream dataOutputStream1 = new DataOutputStream(socket.getOutputStream());
 
         while(true) {
-            dataOutputStream1.writeFloat((float) (Math.random() * 1000));
+            int i = 0;
+            dataOutputStream.writeInt(swap(5));
+            dataOutputStream.writeInt(swap(258));
+
+            while (i <= 256) {
+                dataOutputStream1.writeFloat((float) (Math.random() * 1000));
+                i++;
+            }
         }
     }
 
