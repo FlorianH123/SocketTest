@@ -66,7 +66,7 @@ public class Test {
                         break;
 
                     case 2:
-                        receiveConnect(dataOutputStream, dataInputStream, client.getInetAddress());
+                        receiveConnect(dataOutputStream, dataInputStream, client.getInetAddress(), taskId);
                         break;
                 }
             }
@@ -113,7 +113,10 @@ public class Test {
         dataOutputStream.writeInt(swap(8));
     }
 
-    private void receiveConnect(DataOutputStream dataOutputStream, DataInputStream dataInputStream, InetAddress inetAddress) throws IOException {
+    private void receiveConnect(DataOutputStream dataOutputStream,
+                                DataInputStream dataInputStream,
+                                InetAddress inetAddress,
+                                int taskId) throws IOException {
         int port;
         System.out.println("Message Size: " + swap(dataInputStream.readInt()));
         port = swap(dataInputStream.readInt());
@@ -127,11 +130,16 @@ public class Test {
 
         while(true) {
             int i = 0;
-            dataOutputStream.writeInt(swap(5));
-            dataOutputStream.writeInt(swap(258));
+            int values = 256;
+            dataOutputStream1.writeInt(swap(5));
+            dataOutputStream1.writeInt(swap((values + 2) * 4));
 
-            while (i <= 256) {
-                dataOutputStream1.writeFloat((float) (Math.random() * 1000));
+            while (i < values) {
+                if (taskId == 1) {
+                    dataOutputStream1.writeFloat(swap((float) (Math.random() * 2)));
+                } else {
+                    dataOutputStream1.writeFloat(swap((float) (Math.random() * 10)));
+                }
                 i++;
             }
         }
