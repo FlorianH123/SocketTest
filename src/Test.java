@@ -138,7 +138,7 @@ public class Test {
                 if (taskId == 1) {
                     dataOutputStream1.writeFloat(swap((float) (Math.random() * 2)));
                 } else {
-                    dataOutputStream1.writeFloat(swap((float) (Math.random() * 10)));
+                    dataOutputStream1.writeInt(swap((int) (Math.random() * 2)));
                 }
                 i++;
             }
